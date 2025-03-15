@@ -47,7 +47,6 @@ return {
 				ui_contrast = "high",
 				diagnostic_virtual_text = "colored",
 			})
-			vim.cmd([[colorscheme everforest]])
 		end,
 	},
 	{
@@ -136,6 +135,7 @@ return {
 					italic = false,
 				},
 			})
+			vim.cmd([[colorscheme rose-pine]])
 		end,
 	},
 	{
