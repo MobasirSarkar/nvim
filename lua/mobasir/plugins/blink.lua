@@ -18,9 +18,17 @@ return {
 			},
 			completion = {
 				menu = {
+					enabled = true,
+					scrollbar = false,
+					winblend = 0,
+					min_width = 25,
+					max_height = 15,
 					draw = {
 						columns = { { "label", "label_description", gap = 2 } },
 					},
+				},
+				ghost_text = {
+					enabled = true,
 				},
 			},
 		},

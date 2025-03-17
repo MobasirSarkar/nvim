@@ -32,7 +32,7 @@ return {
 
 		"rcarriga/nvim-notify",
 		opts = {
-			timeout = 1000,
+			timeout = 500,
 		},
 		config = function(_, opts)
 			require("notify").setup(vim.tbl_extend("keep", {

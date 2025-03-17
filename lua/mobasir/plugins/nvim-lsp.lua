@@ -15,15 +15,9 @@ return {
 
 	config = function()
 		local cmp = require("cmp")
-		local cmp_lsp = require("cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
 
-		--[[ 		local capabilities = require("blink.cmp").get_lsp_capabilities() ]]
+		-- Use blink.cmp for capabilities
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local on_attach = function(_, bufnr)
 			local function buf_set_option(...)
@@ -51,7 +45,49 @@ return {
 			vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 		end
+
+		-- Load VSCode snippets
 		require("luasnip.loaders.from_vscode").lazy_load()
+
+		-- Setup completion first
+		local cmp_select = { behavior = cmp.SelectBehavior.Select }
+		cmp.setup({
+			snippet = {
+				expand = function(args)
+					require("luasnip").lsp_expand(args.body)
+				end,
+			},
+			mapping = cmp.mapping.preset.insert({
+				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-e>"] = cmp.mapping.abort(),
+			}),
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+			}, {
+				{ name = "buffer" },
+				{ name = "path" },
+			}),
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
+		})
+
+		-- Setup cmdline completion
+		cmp.setup.cmdline(":", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = "path" },
+			}, {
+				{ name = "cmdline" },
+			}),
+		})
+
+		-- Setup Mason and LSP servers
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"lua_ls",
@@ -65,7 +101,7 @@ return {
 				"biome",
 			},
 			handlers = {
-				function(server_name) -- default handler (optional)
+				function(server_name) -- default handler
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
 						on_attach = on_attach,
@@ -75,6 +111,8 @@ return {
 				zls = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.zls.setup({
+						capabilities = capabilities,
+						on_attach = on_attach,
 						root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
 						settings = {
 							zls = {
@@ -87,6 +125,7 @@ return {
 					vim.g.zig_fmt_parse_errors = 0
 					vim.g.zig_fmt_autosave = 0
 				end,
+
 				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.lua_ls.setup({
@@ -102,6 +141,7 @@ return {
 						},
 					})
 				end,
+
 				["rust_analyzer"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.rust_analyzer.setup({
@@ -118,40 +158,5 @@ return {
 				end,
 			},
 		})
-
-		local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-				end,
-			},
-			mapping = cmp.mapping.preset.insert({
-				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
-				["<C-E>"] = cmp.mapping.abort(),
-			}),
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-			}, {
-				{ name = "buffer" },
-			}),
-		})
-
-		vim.diagnostic.config({
-			float = {
-				focusable = false,
-				style = "minimal",
-				border = "rounded",
-				source = "always",
-				header = "",
-				prefix = "",
-			},
-		})
-		require("lspconfig").protols.setup({})
 	end,
 }
