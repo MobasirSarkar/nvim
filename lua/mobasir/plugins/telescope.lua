@@ -21,12 +21,12 @@ return {
 					},
 				},
 			},
-			extensions = {
+			--[[ extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({}),
 				},
 				fzf = {},
-			},
+			}, ]]
 			pickers = {
 				find_files = {
 					theme = "ivy",

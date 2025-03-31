@@ -132,7 +132,13 @@ return {
 				variant = "moon",
 				styles = {
 					transparency = true,
-					italic = false,
+					italic = true,
+				},
+				highlight_groups = {
+					NormalFloat = { bg = "base" }, -- Set background for floating windows
+					Pmenu = { bg = "base" },
+					PmenuSel = { bg = "overlay", fg = "love" },
+					PmenuBorder = { bg = "base", fg = "highlight_high" },
 				},
 			})
 			vim.cmd([[colorscheme rose-pine]])
