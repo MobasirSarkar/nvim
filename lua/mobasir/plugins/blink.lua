@@ -27,9 +27,6 @@ return {
 						columns = { { "label", "label_description", gap = 2 } },
 					},
 				},
-				ghost_text = {
-					enabled = true,
-				},
 			},
 		},
 		opts_extend = { "sources.default" },
