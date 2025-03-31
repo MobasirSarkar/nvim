@@ -1,11 +1,3 @@
 {
-    "diagnostics.globals": [
-        "bit",
-        "vim",
-        "it",
-        "describe",
-        "before_each",
-        "after_each",
-        "LazyVim"
-    ]
+	"diagnostics.globals": ["bit", "vim", "it", "describe", "before_each", "after_each", "LazyVim"]
 }

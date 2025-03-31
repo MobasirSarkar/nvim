@@ -7,8 +7,17 @@ return {
 			local lualine = require("lualine")
 			lualine.setup({
 				options = {
-					theme = "material",
-					icon_enabled = true,
+					theme = "OceanicNext",
+					icons_enabled = true,
+				},
+				sections = {
+					lualine_c = {
+						{
+							"filename",
+							path = 1, -- 0: Just filename, 1: Relative path, 2: Absolute path
+							file_status = true,
+						},
+					},
 				},
 			})
 		end,
@@ -20,7 +29,7 @@ return {
 		event = "VeryLazy",
 	},
 	-- sidebar indent
-	--[[ 	{
+	--[[ {
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		opts = {},
