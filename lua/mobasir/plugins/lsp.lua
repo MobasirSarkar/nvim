@@ -21,7 +21,7 @@ return {
 			--capabilities = vim.lsp.protocol.make_client_capabilities(),
 			capabilities = require("blink.cmp").get_lsp_capabilities(),
 			servers = {
-				pylsp = {},
+				pyright = {},
 				gopls = {
 					settings = {
 						gopls = {
@@ -129,6 +129,12 @@ return {
 					return diagnostic_message[diagnostic.severity]
 				end,
 			},
+		})
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+			max_width = 80,
+			focusable = true,
 		})
 	end,
 }

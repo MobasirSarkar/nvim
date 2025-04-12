@@ -21,7 +21,7 @@ return {
 				min_width = 25,
 				max_height = 15,
 				draw = {
-					padding = { 2, 2 },
+					padding = { 3, 3 },
 					columns = { { "label", "label_description", gap = 2 } },
 					components = {
 						kind_icon = {

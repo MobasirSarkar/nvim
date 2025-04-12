@@ -145,6 +145,13 @@ return {
 			desc = "LSP Workspace Symbols",
 		},
 		{
+			"K",
+			function()
+				Snacks.picker.lsp_buf_hover()
+			end,
+			desc = "LSP hover",
+		},
+		{
 			"<leader>N",
 			desc = "Neovim News",
 			function()
@@ -155,7 +162,7 @@ return {
 					wo = {
 						spell = false,
 						wrap = false,
-						signcolumn = "yes",
+
 						statuscolumn = " ",
 						conceallevel = 3,
 					},
