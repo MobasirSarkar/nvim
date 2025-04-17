@@ -22,6 +22,10 @@ return {
 			capabilities = require("blink.cmp").get_lsp_capabilities(),
 			servers = {
 				pyright = {},
+				unocss = {},
+				ts_ls = {},
+				docker_compose_language_service = {},
+				dockerls = {},
 				gopls = {
 					settings = {
 						gopls = {

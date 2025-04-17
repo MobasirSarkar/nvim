@@ -105,7 +105,11 @@ return {
 				transparent = true,
 				commentStyle = { italic = true },
 				functionStyle = { italic = true },
+				color_offset = {
+					canvas = { brightness = 1, saturation = 1 },
+				},
 			})
+			vim.cmd([[colorscheme kanagawa-paper-canvas]])
 		end,
 	},
 	{
@@ -147,7 +151,6 @@ return {
 					TelescopeSelection = { fg = "text", bg = "base" },
 				},
 			})
-			vim.cmd([[colorscheme rose-pine]])
 		end,
 	},
 	{
@@ -168,6 +171,31 @@ return {
 
 		config = function(_, opts)
 			require("tokyonight").setup(opts)
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = true,
+		priority = 1000,
+		config = function()
+			-- Default options:
+			require("kanagawa").setup({
+				compile = true, -- enable compiling the colorscheme
+				undercurl = true, -- enable undercurls
+				commentStyle = { italic = true },
+				functionStyle = {},
+				keywordStyle = { italic = true },
+				statementStyle = { bold = true },
+				typeStyle = {},
+				transparent = true, -- do not set background color
+				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+				terminalColors = true, -- define vim.g.terminal_color_{0,17}
+				theme = "dragon", -- Load "wave" theme
+				background = { -- map the value of 'background' option to a theme
+					dark = "dragon", -- try "dragon" !
+					light = "lotus",
+				},
+			})
 		end,
 	},
 }
