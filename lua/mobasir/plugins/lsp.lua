@@ -26,6 +26,7 @@ return {
 				ts_ls = {},
 				docker_compose_language_service = {},
 				dockerls = {},
+				tailwindcss = {},
 				gopls = {
 					settings = {
 						gopls = {
@@ -86,7 +87,7 @@ return {
 								},
 								renderColons = true,
 								typeHints = {
-									enable = true,
+									enable = false,
 									hideClosureInitialization = false,
 									hideNamedConstructor = false,
 								},
@@ -105,6 +106,7 @@ return {
 						},
 					},
 				},
+				clangd = {},
 			},
 		})
 
